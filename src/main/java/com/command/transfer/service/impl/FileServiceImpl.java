@@ -52,11 +52,6 @@ public class FileServiceImpl implements FileService {
 
         Node.Instance().FindFile(sha1, fileName, qwe, janTing);
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         String filePath = "./Users/itinypocket/workspace/temp";
         File path = new File(filePath); //判断文件路径下的文件夹是否存在，不存在则创建
         if (!path.exists()) {
