@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>文件上传</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+    加入节点：<button id="submit" >加入节点</button><br>
+    <form id="myform" enctype="multipart/form-data" method="post">
+         上传文件：<input name="files" type="file"><br>
+    </form>
+    <button id="upload">上传文件</button><br>
+    <form action="http://localhost:9527/transfer/downloadFile" method="get">
+        下载文件名：<input id="name" name="fileName" type="text"><br>
+        <button id="download" type="submit">下载文件</button>
+    </form>
+</body>
+</html>
+
+<script type="text/javascript" src="./jquery-1.9.1.js">
+</script>
+<script>
+    $(function(){
+        $("#download").click(function(e){
+            var url = "http://localhost:9527/transfer/downloadFile";
+            var params = {"fileName":$("input[type='text']").val()};
+            console.log(e)
+            $.ajax({
+                "url" : url,
+                "type" : "get",
+                "data" : params,
+                "success" : function(data) {
+                    // 参数为json类型的对象
+                    alert(data.message)
+                },
+                "error" : function() {
+                    alert(data.message);
+                }
+            });
+
+        });
+    });
+</script>
+<script>
+    $(function(){
+        $("#upload").click(function(e){
+            var url = "http://localhost:9527/transfer/upload";
+            //var params = {"username":$("input[type='text']").val(), "password":$("input[type='password']").val()};
+            console.log(e)
+            var formData = new FormData(document.getElementById('myform'));
+            $.ajax({
+                "url" : url,
+                "type" : "post",
+                dataType:"json",
+                data:formData,
+                processData: false,// 不加会报错
+                contentType: false,// 不加会报错
+                "success" : function(data) {
+                    // 参数为json类型的对象
+                    alert(data.message)
+                },
+                "error" : function() {
+                    alert(data.message);
+                }
+            });
+
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#submit").click(function(e){
+            var url = "http://localhost:9527/node/create";
+            //var params = {"username":$("input[type='text']").val(), "password":$("input[type='password']").val()};
+            console.log(e)
+            $.ajax({
+                "url" : url,
+                //"data" : params,
+                "type" : "get",
+                "success" : function(data) {
+                    // 参数为json类型的对象
+                    alert(data.message)
+                },
+                "error" : function() {
+                    alert(data.message);
+                }
+            });
+
+        });
+    });
+</script>
+
+
